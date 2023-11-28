@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+  <link rel='stylesheet' href='https://pro.fontawesome.com/releases/v5.10.0/css/all.css' integrity='sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p' crossorigin='anonymous'/>
+  <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="page">
+  <div class="pageHeader" >
+    <div class="title">Dashboard</div>
+    <div class="userPanel">
+      <a style="color:#7bf67b;" onclick="return confirm('Are yuo sure to logout ? ')" href="/logout"><i style="cursor:pointer;" class="fas fa-sign-out-alt"></i></a>
+      <span class="username"><%= user.name %></span>
+    <img width="40" height="40" src="<%= profileImage ?? 'fac.png' %>" />
+    
+  </div>
+  </div>
+  <div class="main">
+    <div class="nav">
+      <div class="searchbox">
+        <div><i class="fa fa-search"></i>
+          <input type="search" placeholder="Search"/>
+        </div>
+      </div>
+      <div class="menu">
+        <div class="title">Folders</div>
+        <!-- get folders from the database -->
+        <ul class = "folderList">
+          <a href="/" class="<%= activeFolderId == 0 ? 'active': null %>"><li class=""><i class="fa fa-folder"></i><span>All</span></li></a>
+
+          <% folders.forEach(folder => { %>
+            <a id="folderWrapp"  href="?folderId=<%= folder.id %>" class="<%= activeFolderId == folder.id ? 'active': null %>">
+              <li class="folder">
+                <i class="fa fa-folder"></i>
+                <span><%= folder.name %></span>
+                <a onclick="return confirm('Are you sure to delete <%= folder.name %> folder ? ')" class="trash" href="?deleteFolderId=<%= folder.id %>"><i class="fas fa-trash"></i></a>
+              </li>
+            </a>
+          <% }) %>
+        </ul>
+      <!-- get folders from the database -->
+
+        <!-- make new folders -->
+        <div class="makeFolderWrap" >
+          <input  class="newfolderINP" type="text" placeholder="make new folder ...">
+          <button  class="addNewFolder"><i class="fas fa-plus"></i></button>
+        </div>
+        <!-- make new folders -->
+
+      </div>
+    </div>
+    <div class="view">
+      <div class="viewHeader">
+        <input style='display : initial' type="text" name="addTask" class="addTaskInp" placeholder="Add new task ...">
+        <div class="functions">
+        </div>
+      </div>
+      <div class="content">
+        <div class="list">
+          <div class="title">Tasks</div>
+          <ul class="taskList">
+
+          <!-- show tasks -->
+            <% if (tasks.length >= 0) { %>
+                <% tasks.forEach(task => { %>
+                  <li  class="<%= task.is_done ? 'checked' : null %> taskWrapp">
+                    <a class="taskStat" href="/?taskId=<%= task.id %>"> <i class="fa <%= task.is_done ? 'fa-check-square-o':'fa-square-o'%>"></i></a> 
+                    <span><%= task.title %></span>
+                    <div class="info">
+                      <!-- <span>Created at <%= task.created_at %> </span>  -->
+                      <a onclick="return confirm('Are you sure to delete <%= task.title %> task ? ')" class="trash"href="/?deleteTaskId=<%= task.id %>"><i class="fas fa-trash"></i></a>
+                    </div>
+                  </li>
+                <% }) %>
+            <% }  else { %>
+              <li> no task here 🧙‍♂️</li>
+            <% }%>
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+<p class="activeFolder" data-id="<%= activeFolderId %>" hidden></p>
+<!-- partial -->
+</body>
+<script src='https://code.jquery.com/jquery-3.6.0.min.js' integrity='sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=' crossorigin='anonymous'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script defer src="js/script.js"></script>
+</html>

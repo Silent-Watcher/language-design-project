@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>auth</title>
+    <link rel="stylesheet" href="styles/auth.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div id="background">
+      <div id="panel-box">
+        <div class="panel">
+          <div class="auth-form on" id="login">
+            <div id="form-title">Log In</div>
+            <!-- login form -->
+            <form id="loginForm" action="/login" method="POST">
+              <input
+                name="email"
+                type="email"
+                id="loginUserEmail"
+                required="required"
+                placeholder="email"
+              />
+              <input
+                name="password"
+                type="password"
+                id="loginUserPass"
+                required="required"
+                placeholder="password"
+              />
+              <input name="submit" type="submit" value="Log In" />
+            </form>
+          </div>
+          <div class="auth-form" id="signup">
+            <div id="form-title">Register</div>
+            <!-- register form -->
+            <form id="registerForm" action="/register" method="POST">
+              <input
+                name="name"
+                type="text"
+                id="registerUserName"
+                required="required"
+                placeholder="username"
+              />
+              <input
+                type="email"
+                name="email"
+                id="registerUserEmail"
+                id="emailSignup"
+                placeholder="email"
+              />
+              <input
+                name="password"
+                type="password"
+                id="registerUserPass"
+                required="required"
+                placeholder="password"
+              />
+              <input type="submit" value="Sign Up" />
+            </form>
+          </div>
+        </div>
+        <div class="panel">
+          <div id="switch">Sign Up</div>
+          <div id="image-overlay"></div>
+          <div id="image-side"></div>
+        </div>
+      </div>
+    </div>
+    <!-- partial -->
+
+    <script src="js/auth.js"></script>
+  </body>
+</html>
